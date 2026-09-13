@@ -1,5 +1,7 @@
 Please follow the instructions below to get the Claude Design files, then run the prompt in @prompts/ideatoplan.md in order to come up with a design and implementation plan to address all the diagrams in Turns 8 and 9. Make sure that we only focus on the diagrams in Turns 8 and 9. Do not ignore any of the figures in Turns 8 and 9.
 
+Make sure to use dynamic workflows to run the ideatoplan prompt.
+
 Use the claude_design MCP (https://api.anthropic.com/v1/design/mcp, auth via /design-login) to import this project:
 https://claude.ai/design/p/63963f38-c61a-459c-9f8a-54b17813e014?file=mBoss+Mockups.dc.html
 
