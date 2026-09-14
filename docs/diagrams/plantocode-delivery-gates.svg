@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="plantocode-delivery-gates-title plantocode-delivery-gates-desc">
+  <title id="plantocode-delivery-gates-title">plan-to-code delivery gates</title>
+  <desc id="plantocode-delivery-gates-desc">Selected fixes may trigger an Opus revision, but always flow through a Sonnet commit sweep before a human release decision; approved work is released by Sonnet and verified plan tasks are then marked complete.</desc>
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@400;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');</style>
+    <style>
+      .lane-a{fill:#fff;fill-opacity:.44}.lane-b{fill:#e9e9ea;fill-opacity:.44}.lane-c{fill:#5980a6;fill-opacity:.06}.node{fill:#fff;stroke:#1d1f20;stroke-width:1}.focal{fill:#5980a6;fill-opacity:.10;stroke:#5980a6;stroke-width:1.2}.optional{fill:#f2f2f3;stroke:#7a7a7d;stroke-width:1;stroke-dasharray:4 3}.store{fill:#e9e9ea;stroke:#7a7a7d;stroke-width:1}
+      .label{fill:#1d1f20;font:600 12px Barlow,sans-serif;text-anchor:middle}.sub{fill:#5d5d60;font:400 8px ui-monospace,Menlo,monospace;text-anchor:middle}.tag{fill:#5d5d60;font:500 8px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-anchor:middle}.lane{fill:#416180;font:600 12px 'Barlow Condensed',sans-serif;text-anchor:middle}.line{fill:none;stroke:#5d5d60;stroke-width:1.2}.dashed{fill:none;stroke:#7a7a7d;stroke-width:1;stroke-dasharray:5 4}
+    </style>
+    <marker id="delivery-gates-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#5d5d60"/></marker>
+  </defs>
+  <rect width="1280" height="720" fill="#f2f2f3"/><rect class="lane-a" x="40" y="80" width="1200" height="144"/><rect class="lane-b" x="40" y="224" width="1200" height="144"/><rect class="lane-c" x="40" y="368" width="1200" height="144"/><rect class="lane-a" x="40" y="512" width="1200" height="120"/>
+  <line x1="40" y1="80" x2="1240" y2="80" stroke="#b7b7ba" stroke-width="0.8"/><line x1="40" y1="224" x2="1240" y2="224" stroke="#b7b7ba" stroke-width="0.8"/><line x1="40" y1="368" x2="1240" y2="368" stroke="#b7b7ba" stroke-width="0.8"/><line x1="40" y1="512" x2="1240" y2="512" stroke="#b7b7ba" stroke-width="0.8"/><line x1="40" y1="632" x2="1240" y2="632" stroke="#b7b7ba" stroke-width="0.8"/>
+  <text class="lane" x="104" y="104">OPUS</text><text class="lane" x="104" y="248">SONNET</text><text class="lane" x="104" y="392">HUMAN</text><text class="lane" x="104" y="536">ORCHESTRATOR</text>
+
+  <path class="line" d="M208 284 H360 Q368 284 368 276 V184" marker-end="url(#delivery-gates-arrow)"/>
+  <line class="dashed" x1="208" y1="308" x2="528" y2="308" marker-end="url(#delivery-gates-arrow)"/>
+  <path class="line" d="M448 152 H600 Q608 152 608 160 V264" marker-end="url(#delivery-gates-arrow)"/>
+  <path class="line" d="M688 296 H840 Q848 296 848 304 V408" marker-end="url(#delivery-gates-arrow)"/>
+  <path class="line" d="M928 432 H1100 Q1108 432 1108 424 V328" marker-end="url(#delivery-gates-arrow)"/>
+  <line class="line" x1="1108" y1="328" x2="1108" y2="544" marker-end="url(#delivery-gates-arrow)"/>
+  <path class="dashed" d="M928 456 H960 Q968 456 968 464 V568 Q968 576 976 576 H1008" marker-end="url(#delivery-gates-arrow)"/>
+
+  <g><rect class="store" x="48" y="264" width="160" height="64" rx="8"/><text class="label" x="128" y="288">Review intersection</text><text class="sub" x="128" y="308">selected fixes or empty set</text></g>
+  <g><rect class="optional" x="288" y="120" width="160" height="64" rx="8"/><text class="label" x="368" y="144">Revise tests + code</text><text class="sub" x="368" y="164">Step 11 · optional Opus</text></g>
+  <g><rect class="node" x="528" y="264" width="160" height="64" rx="8"/><text class="label" x="608" y="288">Commit sweep 2</text><text class="sub" x="608" y="308">Step 12 · always runs</text></g>
+  <g><rect class="focal" x="768" y="408" width="160" height="64" rx="8"/><text class="label" x="848" y="432">Approve release?</text><text class="sub" x="848" y="452">explicit human gate</text></g>
+  <g><rect class="node" x="1008" y="264" width="200" height="64" rx="8"/><text class="label" x="1108" y="288">Release scoped modules</text><text class="sub" x="1108" y="308">6 component commands → /release-root</text></g>
+  <g><rect class="node" x="1008" y="544" width="200" height="64" rx="8"/><text class="label" x="1108" y="568">Update plan inline</text><text class="sub" x="1108" y="588">only implemented + verified tasks ✅</text></g>
+
+  <text class="tag" x="640" y="624">17–18 ASSIGNMENTS IF RELEASE IS DECLINED · 18–19 IF APPROVED</text>
+  <line x1="40" y1="660" x2="1240" y2="660" stroke="#b7b7ba" stroke-width="0.8"/><text class="tag" x="352" y="688">SOLID · EXECUTE THE STAGE</text><text class="tag" x="832" y="688">DASHED · SKIP OPTIONAL REVISION OR DECLINE RELEASE</text>
+</svg>

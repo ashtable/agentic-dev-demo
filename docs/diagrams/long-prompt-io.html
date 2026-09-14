@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Long prompt inputs and outputs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>*{box-sizing:border-box}body{margin:0;padding:32px;background:#f2f2f3;color:#1d1f20;font-family:Barlow,sans-serif}main{max-width:1280px;margin:auto}p{margin:0 0 8px;color:#5d5d60;font:500 12px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}h1{margin:0 0 24px;font:600 32px "Barlow Condensed",sans-serif}svg{width:100%;min-width:960px;display:block}</style>
+</head>
+<body><main><p>Prompt contracts · stage framework</p><h1>Each long prompt turns a richer input into a more durable artifact</h1>
+<svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="long-prompt-io-title long-prompt-io-desc">
+  <title id="long-prompt-io-title">Long prompt inputs and outputs</title>
+  <desc id="long-prompt-io-desc">Three consistent stage columns compare the inputs, internal orchestration, and outputs of design-the-idea, idea-to-plan, and plan-to-code.</desc>
+  <defs>
+    <style>
+      .zone{fill:#e9e9ea;fill-opacity:.48;stroke:#b7b7ba;stroke-width:.8}.cell{fill:#fff;stroke:#7a7a7d;stroke-width:1}.focal{fill:#5980a6;fill-opacity:.10;stroke:#5980a6;stroke-width:1.2}
+      .heading{fill:#1d1f20;font:600 16px 'Barlow Condensed',sans-serif;text-anchor:middle}.slot{fill:#416180;font:500 8px ui-monospace,Menlo,monospace;letter-spacing:.12em}.label{fill:#1d1f20;font:600 12px Barlow,sans-serif}.sub{fill:#5d5d60;font:400 8px ui-monospace,Menlo,monospace}.tag{fill:#5d5d60;font:500 8px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-anchor:middle}.line{fill:none;stroke:#5d5d60;stroke-width:1.2}
+    </style>
+    <marker id="prompt-io-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#5d5d60"/></marker>
+  </defs>
+  <rect width="1280" height="720" fill="#f2f2f3"/>
+  <rect class="zone" x="56" y="88" width="352" height="520" rx="8"/><rect class="zone" x="464" y="88" width="352" height="520" rx="8"/><rect class="zone" x="872" y="88" width="352" height="520" rx="8"/>
+  <path class="line" d="M392 504 H432 Q440 504 440 496 V240 Q440 232 448 232 H480" marker-end="url(#prompt-io-arrow)"/>
+  <path class="line" d="M800 504 H840 Q848 504 848 496 V240 Q848 232 856 232 H888" marker-end="url(#prompt-io-arrow)"/>
+
+  <text class="heading" x="232" y="124">Step 4 · designtheidea.md</text><text class="heading" x="640" y="124">Step 5 · meta prompt → ideatoplan.md</text><text class="heading" x="1048" y="124">Step 6 · hardened /plantocode</text>
+
+  <g><rect class="cell" x="72" y="176" width="320" height="112" rx="8"/><text class="slot" x="88" y="200">INPUT</text><text class="label" x="88" y="228">Prompt + 16 visual artifacts</text><text class="sub" x="88" y="252">6 current/future pairs · 4 standalone bugs</text><text class="sub" x="88" y="272">future views captured from prior turns</text></g>
+  <g><rect class="cell" x="72" y="312" width="320" height="112" rx="8"/><text class="slot" x="88" y="336">ORCHESTRATION</text><text class="label" x="88" y="364">Compare → diagnose → synthesize</text><text class="sub" x="88" y="388">Fable 5.1 · Claude Design</text><text class="sub" x="88" y="408">0 subagents</text></g>
+  <g><rect class="cell" x="72" y="448" width="320" height="112" rx="8"/><text class="slot" x="88" y="472">OUTPUT</text><text class="label" x="88" y="500">New critique diagrams</text><text class="sub" x="88" y="524">every mismatch + bug visualized</text><text class="sub" x="88" y="544">durable handoff in Claude Design</text></g>
+
+  <g><rect class="cell" x="480" y="176" width="320" height="112" rx="8"/><text class="slot" x="496" y="200">INPUT</text><text class="label" x="496" y="228">Request + design context + code</text><text class="sub" x="496" y="252">Claude Design Turns 8–9 via MCP</text><text class="sub" x="496" y="272">mBoss superrepo + submodules</text></g>
+  <g><rect class="focal" x="480" y="312" width="320" height="112" rx="8"/><text class="slot" x="496" y="336">ORCHESTRATION</text><text class="label" x="496" y="364">Meta prompt launches the long prompt</text><text class="sub" x="496" y="388">survey → model → design → review → plan</text><text class="sub" x="496" y="408">15 agents · 16 when revision runs</text></g>
+  <g><rect class="cell" x="480" y="448" width="320" height="112" rx="8"/><text class="slot" x="496" y="472">OUTPUT</text><text class="label" x="496" y="500">Three design documents</text><text class="sub" x="496" y="524">current-design.md · design-delta.md</text><text class="sub" x="496" y="544">plan.md + transient scratch notes</text></g>
+
+  <g><rect class="cell" x="888" y="176" width="320" height="112" rx="8"/><text class="slot" x="904" y="200">INPUT</text><text class="label" x="904" y="228">Plan, design context + repository</text><text class="sub" x="904" y="252">current · delta · plan · vision brief</text><text class="sub" x="904" y="272">selected tasks · code · skills · mockups</text></g>
+  <g><rect class="cell" x="888" y="312" width="320" height="112" rx="8"/><text class="slot" x="904" y="336">ORCHESTRATION</text><text class="label" x="904" y="364">Hardened command executes TDD delivery</text><text class="sub" x="904" y="388">research → tests/code → review → release gate</text><text class="sub" x="904" y="408">17–19 agents depending on revision + release</text></g>
+  <g><rect class="cell" x="888" y="448" width="320" height="112" rx="8"/><text class="slot" x="904" y="472">OUTPUT</text><text class="label" x="904" y="500">Tested implementation + evidence</text><text class="sub" x="904" y="524">tests · code · commits · optional release</text><text class="sub" x="904" y="544">plan updated only for verified tasks</text></g>
+
+  <line x1="40" y1="660" x2="1240" y2="660" stroke="#b7b7ba" stroke-width="0.8"/><text class="tag" x="640" y="688">THE OUTPUT OF EACH STAGE BECOMES A NAMED INPUT TO THE NEXT</text>
+</svg></main></body></html>

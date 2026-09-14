@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mboss-superrepo-title mboss-superrepo-desc">
+  <title id="mboss-superrepo-title">mBoss superrepository hierarchy</title>
+  <desc id="mboss-superrepo-desc">The mBoss root repository pins eleven git submodules grouped as interfaces, runtime services, contracts and data, and delivery and assurance components.</desc>
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@400;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');</style>
+    <style>
+      .node{fill:#fff;stroke:#1d1f20;stroke-width:1}.root{fill:#5980a6;fill-opacity:.10;stroke:#5980a6;stroke-width:1.2}.line{fill:none;stroke:#5d5d60;stroke-width:1.2}
+      .label{fill:#1d1f20;font:600 16px 'Barlow Condensed',sans-serif;text-anchor:middle}.module{fill:#1d1f20;font:600 12px Barlow,sans-serif;text-anchor:middle}.sub{fill:#5d5d60;font:400 8px ui-monospace,Menlo,monospace;text-anchor:middle}.tag{fill:#5d5d60;font:500 8px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-anchor:middle}
+    </style>
+  </defs>
+  <rect width="1280" height="720" fill="#f2f2f3"/>
+  <path class="line" d="M640 184 V256 H176 V304 M640 256 H472 V304 M640 256 H768 V304 M640 256 H1064 V304"/>
+
+  <g><rect class="root" x="480" y="88" width="320" height="96" rx="8"/><text class="label" x="640" y="120">ashtable/mboss</text><text class="module" x="640" y="144">superrepository</text><text class="sub" x="640" y="164">gitlinks · tracking branches · compose · agent config</text></g>
+
+  <g><rect class="node" x="56" y="304" width="240" height="180" rx="8"/><text class="tag" x="176" y="332">INTERFACES</text><text class="module" x="176" y="364">mboss-web</text><text class="module" x="176" y="392">mboss-vscode</text><text class="module" x="176" y="420">mboss-docs</text><text class="sub" x="176" y="456">Next.js / React UI · extension · MDX</text></g>
+  <g><rect class="node" x="352" y="304" width="240" height="180" rx="8"/><text class="tag" x="472" y="332">RUNTIME SERVICES</text><text class="module" x="472" y="364">mboss-nodejs-api</text><text class="module" x="472" y="392">mboss-nodejs-dbos</text><text class="module" x="472" y="420">mboss-mcp-server</text><text class="sub" x="472" y="456">Fastify · DBOS worker · MCP</text></g>
+  <g><rect class="node" x="648" y="304" width="240" height="180" rx="8"/><text class="tag" x="768" y="332">CONTRACTS + DATA</text><text class="module" x="768" y="364">mboss-core</text><text class="module" x="768" y="392">mboss-zod</text><text class="module" x="768" y="420">mboss-database</text><text class="sub" x="768" y="456">shared library · schemas · migrations</text></g>
+  <g><rect class="node" x="944" y="304" width="240" height="180" rx="8"/><text class="tag" x="1064" y="332">DELIVERY + ASSURANCE</text><text class="module" x="1064" y="368">mboss-skills</text><text class="module" x="1064" y="400">mboss-e2e-tests</text><text class="sub" x="1064" y="432">Playwright + smoke tests</text><text class="sub" x="1064" y="456">nests web · api · dbos · mcp · vscode</text></g>
+
+  <rect x="256" y="544" width="768" height="56" rx="4" fill="#e9e9ea" stroke="#b7b7ba" stroke-width="0.8"/><text class="module" x="640" y="568">A tracking branch can move; the superrepo records an immutable gitlink SHA.</text><text class="sub" x="640" y="588">/release-root certifies the assembled pins, not merely the branch names in .gitmodules</text>
+  <line x1="40" y1="660" x2="1240" y2="660" stroke="#b7b7ba" stroke-width="0.8"/><text class="tag" x="640" y="688">11 GITLINKS · ONE PER SUBMODULE · CATEGORY BOXES ARE EDITORIAL GROUPING</text>
+</svg>

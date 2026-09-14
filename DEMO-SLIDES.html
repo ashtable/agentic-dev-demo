@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Ash’s Agentic Development Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f2f2f3;
+      --surface: #e9e9ea;
+      --surface-strong: #dcdcdf;
+      --ink: #1d1f20;
+      --muted: #5d5d60;
+      --soft: #7a7a7d;
+      --line: #b7b7ba;
+      --accent: #5980a6;
+      --accent-dark: #416180;
+      --accent-pale: #dce5ed;
+      --ok: #347451;
+      --warn: #a66f2e;
+      --shadow: 0 20px 60px rgba(0, 0, 0, .24);
+    }
+
+    * { box-sizing: border-box; }
+    html { background: #090b0c; }
+    body { margin: 0; overflow: hidden; background: #090b0c; color: var(--ink); font-family: Barlow, Arial, sans-serif; }
+    button, a { font: inherit; }
+
+    .slide {
+      position: fixed;
+      inset: 0;
+      min-height: 100svh;
+      display: none;
+      place-items: center;
+      background: #090b0c;
+    }
+    .slide:first-child { display: grid; }
+    body.ready .slide { display: none; }
+    body.ready .slide.active { display: grid; }
+
+    .canvas {
+      position: relative;
+      width: min(100vw, 177.778svh);
+      height: min(100svh, 56.25vw);
+      min-height: 420px;
+      overflow: hidden;
+      padding: clamp(32px, 4vw, 72px) clamp(40px, 5vw, 88px);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .dark .canvas { background: var(--ink); color: var(--paper); }
+    .blue .canvas { background: var(--accent-dark); color: #fff; }
+    .canvas::after {
+      content: attr(data-slide);
+      position: absolute;
+      right: clamp(28px, 3vw, 52px);
+      top: clamp(20px, 2vw, 34px);
+      color: var(--soft);
+      font: 600 clamp(11px, .85vw, 16px) ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .12em;
+    }
+    .dark .canvas::after, .blue .canvas::after { color: rgba(255, 255, 255, .56); }
+
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; }
+    h1 { max-width: 1200px; font-size: clamp(58px, 7.2vw, 126px); font-weight: 600; letter-spacing: -.025em; line-height: .92; }
+    h2 { max-width: 1350px; font-size: clamp(42px, 5vw, 88px); font-weight: 600; letter-spacing: -.018em; line-height: .96; }
+    h3 { font-size: clamp(26px, 2.35vw, 42px); font-weight: 600; line-height: 1; }
+    p, li { font-size: clamp(20px, 1.65vw, 30px); line-height: 1.32; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .88em; }
+
+    .eyebrow {
+      margin-bottom: clamp(16px, 1.8vw, 30px);
+      color: var(--accent-dark);
+      font: 600 clamp(13px, 1.05vw, 19px) ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .dark .eyebrow, .blue .eyebrow { color: #a9c2d9; }
+    .lede { max-width: 1100px; margin-top: clamp(24px, 3vw, 52px); color: var(--muted); font-size: clamp(23px, 2.15vw, 38px); }
+    .dark .lede, .blue .lede { color: rgba(255, 255, 255, .72); }
+    .accent { color: var(--accent); }
+    .dark .accent, .blue .accent { color: #b6d0e8; }
+
+    .rule { width: 112px; height: 5px; margin: clamp(24px, 3vw, 48px) 0; background: var(--accent); }
+    .dark .rule, .blue .rule { background: #b6d0e8; }
+
+    .title-slide .canvas { display: flex; flex-direction: column; justify-content: center; }
+    .title-slide .kicker { margin-top: 40px; color: var(--muted); font-size: clamp(22px, 2vw, 36px); }
+    .dark.title-slide .kicker { color: rgba(255, 255, 255, .66); }
+    .chips { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+    .title-slide .chips { margin-top: 48px; }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .56);
+      font: 500 clamp(15px, 1.15vw, 21px) ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .dark .chip, .blue .chip { border-color: rgba(255,255,255,.24); background: rgba(255,255,255,.06); color: rgba(255,255,255,.78); }
+
+    .section-slide .canvas { display: grid; grid-template-columns: 1fr .76fr; align-items: center; gap: 8vw; }
+    .section-number { color: var(--accent); font: 600 clamp(150px, 24vw, 420px)/.75 "Barlow Condensed", sans-serif; text-align: right; opacity: .72; }
+    .blue .section-number { color: rgba(255,255,255,.2); }
+    .section-slide .lede { max-width: 820px; }
+
+    .grid-3, .grid-4 { display: grid; gap: clamp(18px, 1.8vw, 32px); margin-top: clamp(30px, 3vw, 52px); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      position: relative;
+      min-width: 0;
+      padding: clamp(20px, 2vw, 34px);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+    .card.blue-card { border-color: var(--accent); background: var(--accent-pale); }
+    .card.dark-card { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+    .card .micro, .micro {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--accent-dark);
+      font: 600 clamp(11px, .9vw, 16px) ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .dark-card .micro { color: #a9c2d9; }
+    .card p { margin-top: 14px; color: var(--muted); font-size: clamp(17px, 1.3vw, 24px); }
+    .dark-card p { color: rgba(255,255,255,.68); }
+    .metric { font: 600 clamp(54px, 5.6vw, 100px)/.9 "Barlow Condensed", sans-serif; color: var(--accent-dark); }
+    .metric-label { margin-top: 14px; color: var(--muted); font-size: clamp(17px, 1.25vw, 23px); }
+
+    .flow {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: clamp(10px, 1.1vw, 20px);
+      align-items: stretch;
+      margin-top: clamp(38px, 4vw, 72px);
+    }
+    .flow::before {
+      content: "";
+      position: absolute;
+      top: 50%; left: 2%; right: 2%;
+      height: 2px;
+      background: var(--line);
+      z-index: -1;
+    }
+    .flow-card {
+      display: flex;
+      min-height: clamp(150px, 15vw, 240px);
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(16px, 1.5vw, 26px);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--paper);
+    }
+    .flow-card.active { border: 2px solid var(--accent); background: var(--accent-pale); }
+    .flow-card .num { color: var(--accent-dark); font: 600 clamp(13px, 1vw, 18px) ui-monospace, monospace; }
+    .flow-card strong { font: 600 clamp(20px, 1.75vw, 31px)/1.02 "Barlow Condensed", sans-serif; }
+    .flow-card small { color: var(--muted); font: 500 clamp(12px, .9vw, 16px) ui-monospace, monospace; }
+
+    .contract {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: clamp(28px, 3vw, 54px);
+      align-items: center;
+      margin-top: clamp(32px, 3.4vw, 58px);
+    }
+    .contract .arrow { color: var(--accent); font-size: clamp(52px, 5vw, 90px); }
+    .stack { display: grid; gap: 16px; }
+    .stack-item { padding: 18px 22px; border-left: 5px solid var(--accent); background: #fff; font-size: clamp(20px, 1.55vw, 28px); }
+    .outcome { display: grid; min-height: 280px; place-items: center; padding: 34px; border: 2px solid var(--accent); border-radius: 14px; background: var(--accent-pale); text-align: center; }
+    .outcome strong { font: 600 clamp(34px, 3.4vw, 60px)/1 "Barlow Condensed", sans-serif; }
+
+    .harness {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1.12fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 22px 40px;
+      align-items: center;
+      margin-top: 24px;
+    }
+    .harness::before {
+      content: "";
+      position: absolute;
+      left: 16%; right: 16%; top: 50%;
+      border-top: 2px solid var(--line);
+      z-index: -1;
+    }
+    .hub {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      display: grid;
+      min-height: 330px;
+      place-items: center;
+      padding: 34px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      background: var(--accent-pale);
+      text-align: center;
+    }
+    .hub strong { display: block; font: 600 clamp(38px, 3.5vw, 64px)/.95 "Barlow Condensed", sans-serif; }
+    .hub p { margin-top: 16px; color: var(--muted); font-size: clamp(17px, 1.3vw, 24px); }
+    .harness .card { min-height: 142px; }
+
+    .swimlane { margin-top: clamp(24px, 2.3vw, 42px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .lane { display: grid; grid-template-columns: 140px repeat(4, 1fr); gap: 18px; align-items: center; min-height: clamp(145px, 14vw, 224px); padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .lane:last-child { border-bottom: 0; }
+    .lane-name { color: var(--accent-dark); font: 600 clamp(18px, 1.6vw, 28px) "Barlow Condensed", sans-serif; text-transform: uppercase; }
+    .node {
+      position: relative;
+      display: grid;
+      min-height: 112px;
+      align-content: center;
+      padding: 16px;
+      border: 1px solid var(--soft);
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      font-size: clamp(17px, 1.25vw, 23px);
+      font-weight: 600;
+    }
+    .node.active { border: 2px solid var(--accent); background: var(--accent-pale); }
+    .node small { display: block; margin-top: 8px; color: var(--muted); font: 500 clamp(11px, .82vw, 15px) ui-monospace, monospace; }
+    .node.arrow::after { content: "→"; position: absolute; right: -29px; top: 50%; color: var(--soft); font-size: 27px; transform: translateY(-52%); }
+    .blank { min-height: 1px; }
+
+    .agent-flow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 18px;
+      margin-top: clamp(42px, 4vw, 70px);
+    }
+    .agent-flow.eight { grid-template-columns: repeat(8, 1fr); gap: 14px; }
+    .agent-stage {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      min-height: clamp(220px, 19vw, 300px);
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(18px, 1.6vw, 28px);
+      border: 1px solid var(--soft);
+      border-top: 6px solid var(--accent);
+      border-radius: 10px;
+      background: #fff;
+    }
+    .agent-stage.opus { border-top-color: var(--ink); }
+    .agent-stage.optional { border-style: dashed; border-top-style: solid; background: var(--surface); }
+    .agent-stage.active { border: 2px solid var(--accent); border-top-width: 6px; background: var(--accent-pale); }
+    .agent-stage:not(:last-child)::after { content: "→"; position: absolute; right: -17px; top: 48%; z-index: 2; color: var(--soft); font-size: 25px; transform: translate(50%, -50%); }
+    .agent-stage .model { color: var(--accent-dark); font: 600 clamp(12px, .88vw, 16px) ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; }
+    .agent-stage.opus .model { color: var(--ink); }
+    .agent-stage strong { font: 600 clamp(22px, 1.8vw, 32px)/1.02 "Barlow Condensed", sans-serif; }
+    .agent-stage small { color: var(--muted); font: 500 clamp(11px, .82vw, 15px)/1.35 ui-monospace, monospace; }
+
+    .artifact { min-height: 330px; }
+    .artifact .file { margin: 24px 0 16px; font: 600 clamp(27px, 2.35vw, 42px) ui-monospace, monospace; color: var(--accent-dark); }
+    .artifact ul { margin: 20px 0 0; padding-left: 1.2em; color: var(--muted); }
+    .artifact li { margin: 10px 0; font-size: clamp(18px, 1.38vw, 25px); }
+
+    .gate-flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; align-items: center; margin-top: 46px; }
+    .gate {
+      position: relative;
+      display: grid;
+      min-height: 190px;
+      align-content: center;
+      padding: 22px;
+      border: 1px solid var(--soft);
+      border-radius: 12px;
+      background: #fff;
+      text-align: center;
+    }
+    .gate:not(:last-child)::after { content: "→"; position: absolute; right: -29px; top: 50%; color: var(--soft); font-size: 30px; transform: translateY(-52%); }
+    .gate.optional { border-style: dashed; }
+    .gate.human { border: 3px solid var(--accent); background: var(--accent-pale); }
+    .gate strong { font: 600 clamp(23px, 2vw, 36px)/1.05 "Barlow Condensed", sans-serif; }
+    .gate small { margin-top: 12px; color: var(--muted); font: 500 clamp(12px, .9vw, 16px) ui-monospace, monospace; }
+    .callout { margin-top: 32px; padding: 18px 24px; border-left: 6px solid var(--warn); background: #f3e7d7; color: #5c4426; font-size: clamp(17px, 1.35vw, 24px); }
+
+    .superrepo {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin-top: 32px;
+    }
+    .repo-root { grid-column: 1 / -1; justify-self: center; width: 38%; border: 2px solid var(--accent); background: var(--accent-pale); }
+    .repo-group { min-height: 260px; }
+    .repo-group ul { list-style: none; margin: 20px 0 0; padding: 0; }
+    .repo-group li { margin: 8px 0; font: 600 clamp(17px, 1.25vw, 23px) ui-monospace, monospace; }
+
+    .human-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 54px; }
+    .human-step { position: relative; min-height: 260px; padding: 28px; border-top: 7px solid var(--accent); background: #fff; }
+    .human-step:not(:last-child)::after { content: "→"; position: absolute; right: -26px; top: 48%; color: var(--soft); font-size: 28px; }
+    .human-step .big-num { color: var(--accent); font: 600 clamp(50px, 4vw, 72px)/1 "Barlow Condensed", sans-serif; }
+    .human-step p { margin-top: 18px; color: var(--muted); font-size: clamp(17px, 1.3vw, 24px); }
+
+    .recap { display: grid; gap: 22px; margin-top: 44px; }
+    .recap-row { display: grid; grid-template-columns: 88px 1fr; align-items: center; gap: 26px; padding: 22px 28px; border: 1px solid rgba(255,255,255,.18); border-radius: 10px; background: rgba(255,255,255,.05); }
+    .recap-row .n { color: #b6d0e8; font: 600 clamp(42px, 3.6vw, 64px) "Barlow Condensed", sans-serif; text-align: center; }
+    .recap-row p { color: rgba(255,255,255,.88); font-size: clamp(22px, 1.85vw, 34px); }
+
+    .speaker-note { position: absolute; left: clamp(40px, 5vw, 88px); bottom: clamp(68px, 5vw, 88px); color: var(--muted); font: italic 500 clamp(15px, 1.15vw, 21px) Barlow, sans-serif; }
+    .dark .speaker-note, .blue .speaker-note { color: rgba(255,255,255,.58); }
+
+    .controls {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(9,11,12,.78);
+      color: #fff;
+      backdrop-filter: blur(12px);
+      transition: opacity .2s ease;
+    }
+    .controls button { width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
+    .controls button:hover, .controls button:focus-visible { background: rgba(255,255,255,.14); outline: none; }
+    .controls output { min-width: 58px; text-align: center; font: 500 13px ui-monospace, monospace; }
+
+    .progress { position: fixed; inset: 0 0 auto; z-index: 21; height: 4px; background: rgba(255,255,255,.1); }
+    .progress span { display: block; width: 0; height: 100%; background: var(--accent); transition: width .2s ease; }
+    .help { position: fixed; left: 18px; bottom: 18px; z-index: 20; padding: 8px 12px; border-radius: 999px; background: rgba(9,11,12,.76); color: rgba(255,255,255,.78); font: 500 12px ui-monospace, monospace; backdrop-filter: blur(12px); transition: opacity .2s ease; }
+    body.chrome-hidden .controls, body.chrome-hidden .help { opacity: 0; pointer-events: none; }
+
+    @media (max-aspect-ratio: 4/3) {
+      .canvas { min-height: 0; }
+      .help { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    @media print {
+      @page { size: 13.333in 7.5in; margin: 0; }
+      html, body { overflow: visible; background: #fff; }
+      .slide, body.ready .slide, body.ready .slide.active { position: static; display: grid; min-height: 0; page-break-after: always; background: #fff; }
+      .canvas { width: 13.333in; height: 7.5in; box-shadow: none; }
+      .controls, .progress, .help { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <div class="help">← → navigate · F fullscreen · P print</div>
+  <nav class="controls" aria-label="Slide controls">
+    <button id="previous" type="button" aria-label="Previous slide">←</button>
+    <output id="counter" aria-live="polite">1 / 16</output>
+    <button id="next" type="button" aria-label="Next slide">→</button>
+  </nav>
+
+  <main id="deck">
+    <section class="slide title-slide dark" id="slide-1" aria-label="Title slide">
+      <div class="canvas" data-slide="01">
+        <p class="eyebrow">Agentic development · end to end</p>
+        <h1>Ash’s Agentic<br><span class="accent">Development Demo</span></h1>
+        <p class="kicker">Evidence → design → plan → tested code → release</p>
+        <div class="chips"><span class="chip">Claude Design</span><span class="chip">Claude Code</span><span class="chip">Codex</span><span class="chip">mBoss</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2" aria-label="Demo overview">
+      <div class="canvas" data-slide="02">
+        <p class="eyebrow">The whole demo · one feedback loop</p>
+        <h2>Seven steps. Three acts. One supervised loop.</h2>
+        <div class="flow" role="img" aria-label="Seven steps flow from ideation through manual testing and repeat">
+          <div class="flow-card"><span class="num">01</span><strong>Think + ideate</strong><small>ChatGPT · Codex</small></div>
+          <div class="flow-card"><span class="num">02</span><strong>Set scope</strong><small>human boundary</small></div>
+          <div class="flow-card"><span class="num">03</span><strong>Capture evidence</strong><small>16 screenshots</small></div>
+          <div class="flow-card"><span class="num">04</span><strong>Design critique</strong><small>Claude Design</small></div>
+          <div class="flow-card active"><span class="num">05</span><strong>Design + plan</strong><small>15–16 agents</small></div>
+          <div class="flow-card active"><span class="num">06</span><strong>Test + code</strong><small>17–19 agents</small></div>
+          <div class="flow-card"><span class="num">07</span><strong>Verify + repeat</strong><small>human checkpoint</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide section-slide blue" id="slide-3" aria-label="Part one title">
+      <div class="canvas" data-slide="03">
+        <div><p class="eyebrow">Part 1</p><h1>Product &amp;<br>UX Design</h1><div class="rule"></div><p class="lede">Give the agents concrete visual evidence before asking for implementation.</p></div>
+        <div class="section-number">1</div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-4" aria-label="Evidence flow">
+      <div class="canvas" data-slide="04">
+        <p class="eyebrow">Steps 1–4 · design for the design</p>
+        <h2>Start with evidence, not a vague request.</h2>
+        <div class="grid-4" role="img" aria-label="Ideation, scope, screenshot evidence, and Claude Design critique flow">
+          <article class="card"><span class="micro">01 · Explore</span><h3>Think, ideate, research</h3><p>ChatGPT and Codex help expose the shape of the problem.</p></article>
+          <article class="card"><span class="micro">02 · Bound</span><h3>Set the scope</h3><p>Choose the demo-sized slice before generating artifacts.</p></article>
+          <article class="card blue-card"><span class="micro">03 · Capture</span><div class="metric">16</div><p>Six current/future pairs plus four standalone bugs.</p></article>
+          <article class="card"><span class="micro">04 · Diagnose</span><h3>Use Claude Design</h3><p>Turn every visible mismatch into a concrete critique diagram.</p></article>
+        </div>
+        <p class="speaker-note">Operator note: this is a good workflow to start before a meal.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-5" aria-label="Step four prompt contract">
+      <div class="canvas" data-slide="05">
+        <p class="eyebrow">Step 4 · prompt contract</p>
+        <h2><code>designtheidea.md</code></h2>
+        <div class="contract" role="img" aria-label="Six screenshot pairs and four bugs flow through one Fable session to new critique diagrams">
+          <div class="stack">
+            <div class="stack-item"><strong>6 pairs</strong><br>current UI ↔ future mockup</div>
+            <div class="stack-item"><strong>4 bugs</strong><br>standalone visual failures</div>
+            <div class="stack-item"><strong>1 prompt</strong><br>detailed comparison instructions</div>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="outcome"><div><span class="micro">Claude Design · Fable 5.1</span><strong>New critique diagrams</strong><p class="metric-label">Every mismatch and bug visualized for the handoff.</p></div></div>
+        </div>
+        <div class="chips"><span class="chip">0 subagents</span><span class="chip">usually &lt; 1 hour</span><span class="chip">visual output</span></div>
+      </div>
+    </section>
+
+    <section class="slide section-slide dark" id="slide-6" aria-label="Part two title">
+      <div class="canvas" data-slide="06">
+        <div><p class="eyebrow">Part 2</p><h1>Agentic<br>Software Design</h1><div class="rule"></div><p class="lede">Measure twice: make the current system, desired delta, and implementation order explicit.</p></div>
+        <div class="section-number">2</div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-7" aria-label="mBoss superrepository">
+      <div class="canvas" data-slide="07">
+        <p class="eyebrow">mBoss · the integration boundary</p>
+        <h2>One superrepo. Eleven independently versioned submodules.</h2>
+        <div class="superrepo" role="img" aria-label="mBoss root groups eleven submodules into interfaces, runtime services, contracts and data, and delivery and assurance">
+          <article class="card repo-root"><span class="micro">Root repository</span><h3>ashtable/mboss</h3><p>Docker Compose · agent config · release preflight · immutable gitlinks</p></article>
+          <article class="card repo-group"><span class="micro">Interfaces</span><ul><li>mboss-web</li><li>mboss-vscode</li><li>mboss-docs</li></ul></article>
+          <article class="card repo-group"><span class="micro">Runtime</span><ul><li>mboss-nodejs-api</li><li>mboss-nodejs-dbos</li><li>mboss-mcp-server</li></ul></article>
+          <article class="card repo-group"><span class="micro">Contracts + data</span><ul><li>mboss-core</li><li>mboss-zod</li><li>mboss-database</li></ul></article>
+          <article class="card repo-group"><span class="micro">Delivery</span><ul><li>mboss-skills</li><li>mboss-e2e-tests</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-8" aria-label="Software design context harness">
+      <div class="canvas" data-slide="08">
+        <p class="eyebrow">Step 5 · context harness</p>
+        <h2>The meta prompt assembles context—then launches the long prompt.</h2>
+        <div class="harness" role="img" aria-label="Claude Design context, custom subagents, the mBoss superrepo, and a hardened slash-command counterpart frame the idea-to-plan workflow">
+          <article class="card"><span class="micro">Visual intent</span><h3>Claude Design</h3><p>Turns 8–9 imported through MCP.</p></article>
+          <div class="hub"><div><span class="micro">Dynamic workflow</span><strong>meta-prompt.md<br>↓<br>ideatoplan.md</strong><p>The hardened twin is <code>/ideatoplan</code>.</p></div></div>
+          <article class="card"><span class="micro">Agent team</span><h3>Sonnet + Opus</h3><p>Role-specific subagents share scratch context.</p></article>
+          <article class="card"><span class="micro">Live system</span><h3>mBoss superrepo</h3><p>Root plus 11 Git submodules.</p></article>
+          <article class="card"><span class="micro">Hardened twin</span><h3><code>/ideatoplan</code></h3><p>Explicit arguments, parallelism, scratch contracts, and reporting.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-9" aria-label="Idea to plan orchestration">
+      <div class="canvas" data-slide="09">
+        <p class="eyebrow">Hardened /ideatoplan · subagent orchestration</p>
+        <h2>Parallel discovery. Deliberate synthesis. Independent judgment.</h2>
+        <div class="agent-flow eight" role="img" aria-label="Sonnet discovery and current modeling flow to Opus design and critique, two Sonnet judges, a Sonnet intersection, an optional Opus revision, and the final Opus plan">
+          <div class="agent-stage"><span class="model">Sonnet ×8</span><strong>Parallel discovery</strong><small>7 repos + request</small></div>
+          <div class="agent-stage"><span class="model">Sonnet</span><strong>Current model</strong><small>current-design.md</small></div>
+          <div class="agent-stage opus"><span class="model">Opus</span><strong>Design delta</strong><small>design-delta.md</small></div>
+          <div class="agent-stage opus"><span class="model">Opus</span><strong>Critique</strong><small>numbered revisions</small></div>
+          <div class="agent-stage active"><span class="model">Sonnet ×2</span><strong>Judge</strong><small>validity ∩ necessity</small></div>
+          <div class="agent-stage"><span class="model">Sonnet</span><strong>Intersection</strong><small>both verdicts only</small></div>
+          <div class="agent-stage opus optional"><span class="model">Opus · optional</span><strong>Revise delta?</strong><small>one pass</small></div>
+          <div class="agent-stage opus"><span class="model">Opus</span><strong>Final plan</strong><small>plan.md</small></div>
+        </div>
+        <div class="chips"><span class="chip">15 assignments</span><span class="chip">16 with revision</span><span class="chip">max fan-out: 8</span><span class="chip">1–10+ h by input</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-10" aria-label="Design artifacts">
+      <div class="canvas" data-slide="10">
+        <p class="eyebrow">Step 5 · named outputs</p>
+        <h2>Three artifacts. Three different jobs.</h2>
+        <div class="grid-3">
+          <article class="card artifact"><span class="micro">Observe</span><div class="file">current-design.md</div><ul><li>System as it exists</li><li>Repo boundaries</li><li>Architecture + sequences</li></ul></article>
+          <article class="card artifact blue-card"><span class="micro">Decide</span><div class="file">design-delta.md</div><ul><li>Requested end state</li><li>Cross-repo changes</li><li>Operational work</li></ul></article>
+          <article class="card artifact"><span class="micro">Sequence</span><div class="file">plan.md</div><ul><li>Ordered task table</li><li>Impacted repositories</li><li>Implementation handoff</li></ul></article>
+        </div>
+        <p class="speaker-note">Operator note: review these documents before selecting implementation work.</p>
+      </div>
+    </section>
+
+    <section class="slide section-slide blue" id="slide-11" aria-label="Part three title">
+      <div class="canvas" data-slide="11">
+        <div><p class="eyebrow">Part 3</p><h1>Supervised Agentic<br>Development</h1><div class="rule"></div><p class="lede">Turn selected plan tasks into tested code—without delegating away human judgment.</p></div>
+        <div class="section-number">3</div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-12" aria-label="Coding context harness">
+      <div class="canvas" data-slide="12">
+        <p class="eyebrow">Step 6 · explicit inputs</p>
+        <h2><code>/plantocode</code> starts from selected work—not “build everything.”</h2>
+        <div class="contract" role="img" aria-label="Selected tasks, design documents, live code, skills, mockups, and approved-release commands feed the plan-to-code workflow">
+          <div class="stack">
+            <div class="stack-item"><strong>Selected tasks</strong> + design URLs</div>
+            <div class="stack-item"><strong>Design docs</strong> + vision brief</div>
+            <div class="stack-item"><strong>Live code</strong> across the superrepo</div>
+            <div class="stack-item"><strong>Skills + mockups</strong> for implementation evidence</div>
+            <div class="stack-item"><strong>Release commands</strong> + preflight for approved delivery</div>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="outcome"><div><span class="micro">Hardened command</span><strong>TDD delivery workflow</strong><p class="metric-label">Research → tests → code → review → release gate.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-13" aria-label="Plan to code orchestration">
+      <div class="canvas" data-slide="13">
+        <p class="eyebrow">Hardened /plantocode · through review</p>
+        <h2>TDD implementation gets an adversarial review before delivery.</h2>
+        <div class="agent-flow" role="img" aria-label="Nine Sonnet discovery agents flow to Opus TDD planning and implementation, a Sonnet commit sweep, Opus review, two Sonnet judges, and their intersection">
+          <div class="agent-stage"><span class="model">Sonnet ×9</span><strong>Parallel discovery</strong><small>request · docs · 7 repos</small></div>
+          <div class="agent-stage opus"><span class="model">Opus</span><strong>TDD plan</strong><small>cross-submodule order</small></div>
+          <div class="agent-stage opus"><span class="model">Opus</span><strong>Tests + code</strong><small>failing → passing</small></div>
+          <div class="agent-stage"><span class="model">Sonnet</span><strong>Commit sweep 1</strong><small>branches + gitlinks</small></div>
+          <div class="agent-stage opus"><span class="model">Opus</span><strong>Deep review</strong><small>numbered revisions</small></div>
+          <div class="agent-stage"><span class="model">Sonnet ×2</span><strong>Judge</strong><small>validity ∩ necessity</small></div>
+          <div class="agent-stage active"><span class="model">Sonnet</span><strong>Intersection</strong><small>delivery handoff</small></div>
+        </div>
+        <div class="chips"><span class="chip">16 assignments through review</span><span class="chip">max fan-out: 9</span><span class="chip">one revision pass</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-14" aria-label="Delivery gates">
+      <div class="canvas" data-slide="14">
+        <p class="eyebrow">Step 6 · delivery gates</p>
+        <h2>The commit sweep always runs. Release never runs silently.</h2>
+        <div class="gate-flow" role="img" aria-label="Optional revision flows to mandatory commit sweep, human approval, scoped release, and verified plan update">
+          <div class="gate optional"><strong>Revise?</strong><small>optional Opus pass</small></div>
+          <div class="gate"><strong>Commit sweep 2</strong><small>mandatory Sonnet step</small></div>
+          <div class="gate human"><strong>Approve release?</strong><small>explicit human gate</small></div>
+          <div class="gate"><strong>Release or skip</strong><small>6 components → root</small></div>
+          <div class="gate"><strong>Update plan</strong><small>verified tasks only</small></div>
+        </div>
+        <div class="callout"><strong>Known manual gap:</strong> <code>/plantocode</code> does not sync nested E2E pins. When nested components change, manually sync them and run <code>/release-e2e-tests</code> before <code>/release-root</code>.</div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-15" aria-label="Human supervision checkpoints">
+      <div class="canvas" data-slide="15">
+        <p class="eyebrow">The control plane · you</p>
+        <h2>Human supervision stays load-bearing.</h2>
+        <div class="human-grid" role="img" aria-label="Human checkpoints are scope, task selection, release approval, and manual verification">
+          <article class="human-step"><div class="big-num">01</div><h3>Bound scope</h3><p>Choose a tractable slice before agents fan out.</p></article>
+          <article class="human-step"><div class="big-num">02</div><h3>Select tasks</h3><p>Review design artifacts before implementation.</p></article>
+          <article class="human-step"><div class="big-num">03</div><h3>Approve release</h3><p>Inspect tests, commits, and the release ledger.</p></article>
+          <article class="human-step"><div class="big-num">04</div><h3>Kick the tires</h3><p>Test manually, deploy if appropriate, then repeat.</p></article>
+        </div>
+        <p class="speaker-note">Don’t set it and forget it. Supervise the coding.</p>
+      </div>
+    </section>
+
+    <section class="slide dark" id="slide-16" aria-label="Demo recap">
+      <div class="canvas" data-slide="16">
+        <p class="eyebrow">What I showed you</p>
+        <h2>Agentic development works best as a system of evidence and gates.</h2>
+        <div class="recap">
+          <div class="recap-row"><div class="n">1</div><p>Use Claude Design and Codex to prepare concrete software-design evidence.</p></div>
+          <div class="recap-row"><div class="n">2</div><p>Use iterative Claude Code subagents to create the design and implementation plan.</p></div>
+          <div class="recap-row"><div class="n">3</div><p>Use a supervised plan-to-code workflow to implement, test, and—if approved—release selected work.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll('.slide')];
+      const progressBar = document.getElementById('progressBar');
+      const counter = document.getElementById('counter');
+      let current = 0;
+
+      const clamp = (value) => Math.max(0, Math.min(slides.length - 1, value));
+      const go = (index) => {
+        current = clamp(index);
+        slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === current));
+        history.replaceState(null, '', `#slide-${current + 1}`);
+        update();
+      };
+      const update = () => {
+        counter.value = `${current + 1} / ${slides.length}`;
+        counter.textContent = counter.value;
+        progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
+      };
+
+      document.getElementById('previous').addEventListener('click', () => go(current - 1));
+      document.getElementById('next').addEventListener('click', () => go(current + 1));
+      document.addEventListener('keydown', (event) => {
+        if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); go(current + 1); }
+        if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); go(current - 1); }
+        if (event.key === 'Home') { event.preventDefault(); go(0); }
+        if (event.key === 'End') { event.preventDefault(); go(slides.length - 1); }
+        if (event.key.toLowerCase() === 'f') document.documentElement.requestFullscreen?.();
+        if (event.key.toLowerCase() === 'p') { event.preventDefault(); window.print(); }
+      });
+
+      const fromHash = Number(location.hash.replace('#slide-', '')) - 1;
+      document.body.classList.add('ready');
+      go(Number.isInteger(fromHash) && fromHash >= 0 ? fromHash : 0);
+      let chromeTimer = window.setTimeout(() => document.body.classList.add('chrome-hidden'), 3000);
+      document.addEventListener('pointermove', () => {
+        document.body.classList.remove('chrome-hidden');
+        window.clearTimeout(chromeTimer);
+        chromeTimer = window.setTimeout(() => document.body.classList.add('chrome-hidden'), 1400);
+      });
+      window.addEventListener('hashchange', () => {
+        const target = Number(location.hash.replace('#slide-', '')) - 1;
+        if (Number.isInteger(target) && target >= 0) go(target);
+      });
+    })();
+  </script>
+</body>
+</html>

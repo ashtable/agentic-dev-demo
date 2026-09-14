@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="demo-prompt-order-title demo-prompt-order-desc">
+  <title id="demo-prompt-order-title">Demo prompt order</title>
+  <desc id="demo-prompt-order-desc">Eight ordered stages show manual ideation and evidence capture flowing through Claude Design, a Step 5 meta prompt, the idea-to-plan long prompt, the plan-to-code prompt, and manual verification.</desc>
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@400;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');</style>
+    <style>
+      .node{fill:#fff;stroke:#1d1f20;stroke-width:1}.input{fill:#e9e9ea;stroke:#7a7a7d}.focal{fill:#5980a6;fill-opacity:.10;stroke:#5980a6;stroke-width:1.2}
+      .label{fill:#1d1f20;font:600 12px Barlow,sans-serif;text-anchor:middle}.sub{fill:#5d5d60;font:400 8px ui-monospace,Menlo,monospace;text-anchor:middle}
+      .tag{fill:#5d5d60;font:500 8px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-anchor:middle}.step{fill:#1d1f20;font:600 8px ui-monospace,Menlo,monospace;text-anchor:middle}
+      .line{fill:none;stroke:#5d5d60;stroke-width:1.2}.accent-line{fill:none;stroke:#5980a6;stroke-width:1.2}.dashed{fill:none;stroke:#7a7a7d;stroke-width:1;stroke-dasharray:5 4}
+    </style>
+    <marker id="demo-order-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#5d5d60"/></marker>
+    <marker id="demo-order-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#5980a6"/></marker>
+  </defs>
+  <rect width="1280" height="720" fill="#f2f2f3"/>
+
+  <text class="tag" x="272" y="176">DESIGN FOR THE DESIGN</text>
+  <text class="tag" x="728" y="176">ITERATIVE AGENTIC DESIGN</text>
+  <text class="tag" x="1096" y="176">SUPERVISED DEVELOPMENT</text>
+
+  <line class="line" x1="172" y1="276" x2="196" y2="276" marker-end="url(#demo-order-arrow)"/>
+  <line class="line" x1="324" y1="276" x2="348" y2="276" marker-end="url(#demo-order-arrow)"/>
+  <line class="line" x1="476" y1="276" x2="500" y2="276" marker-end="url(#demo-order-arrow)"/>
+  <line class="line" x1="628" y1="276" x2="652" y2="276" marker-end="url(#demo-order-arrow)"/>
+  <line class="accent-line" x1="780" y1="276" x2="804" y2="276" marker-end="url(#demo-order-arrow-accent)"/>
+  <line class="line" x1="932" y1="276" x2="956" y2="276" marker-end="url(#demo-order-arrow)"/>
+  <line class="line" x1="1084" y1="276" x2="1108" y2="276" marker-end="url(#demo-order-arrow)"/>
+  <path class="dashed" d="M1172 332 V472 Q1172 480 1164 480 H116 Q108 480 108 472 V332" marker-end="url(#demo-order-arrow)"/>
+
+  <g><rect class="input" x="44" y="220" width="128" height="112" rx="8"/><text class="step" x="108" y="244">01 · CHATGPT</text><text class="label" x="108" y="272"><tspan x="108">Ideate</tspan><tspan x="108" dy="16">freely</tspan></text><text class="sub" x="108" y="312">conversation</text></g>
+  <g><rect class="input" x="196" y="220" width="128" height="112" rx="8"/><text class="step" x="260" y="244">02 · HUMAN</text><text class="label" x="260" y="280">Set scope</text><text class="sub" x="260" y="312">demo boundary</text></g>
+  <g><rect class="input" x="348" y="220" width="128" height="112" rx="8"/><text class="step" x="412" y="244">03 · FILES</text><text class="label" x="412" y="272"><tspan x="412">Capture</tspan><tspan x="412" dy="16">evidence</tspan></text><text class="sub" x="412" y="312">16 screenshots</text></g>
+  <g><rect class="node" x="500" y="220" width="128" height="112" rx="8"/><text class="step" x="564" y="244">04 · CLAUDE DESIGN</text><text class="label" x="564" y="272"><tspan x="564">designthe</tspan><tspan x="564" dy="16">idea.md</tspan></text><text class="sub" x="564" y="312">Fable 5.1</text></g>
+  <g><rect class="focal" x="652" y="220" width="128" height="112" rx="8"/><text class="step" x="716" y="244">05A · OPUS</text><text class="label" x="716" y="272"><tspan x="716">meta-</tspan><tspan x="716" dy="16">prompt.md</tspan></text><text class="sub" x="716" y="312">imports Turns 8–9</text></g>
+  <g><rect class="node" x="804" y="220" width="128" height="112" rx="8"/><text class="step" x="868" y="244">05B · CLAUDE CODE</text><text class="label" x="868" y="272"><tspan x="868">ideatoplan</tspan><tspan x="868" dy="16">.md</tspan></text><text class="sub" x="868" y="312">twin: /ideatoplan</text></g>
+  <g><rect class="node" x="956" y="220" width="128" height="112" rx="8"/><text class="step" x="1020" y="244">06 · CLAUDE CODE</text><text class="label" x="1020" y="272"><tspan x="1020">plantocode</tspan><tspan x="1020" dy="16">.md</tspan></text><text class="sub" x="1020" y="312">twin: /plantocode</text></g>
+  <g><rect class="input" x="1108" y="220" width="128" height="112" rx="8"/><text class="step" x="1172" y="244">07 · HUMAN</text><text class="label" x="1172" y="272"><tspan x="1172">Verify +</tspan><tspan x="1172" dy="16">deploy</tspan></text><text class="sub" x="1172" y="312">start next loop</text></g>
+
+  <text class="tag" x="640" y="516">MANUAL VERIFICATION FEEDS THE NEXT PRODUCT ITERATION</text>
+  <line x1="40" y1="660" x2="1240" y2="660" stroke="#b7b7ba" stroke-width="0.8"/>
+  <text class="tag" x="184" y="688">GRAY · HUMAN OR FILE INPUT</text><text class="tag" x="536" y="688">WHITE · EXECUTABLE PROMPT</text><text class="tag" x="900" y="688">BLUE · CONTEXT-LAUNCHING META PROMPT</text>
+</svg>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>plan-to-code orchestration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>*{box-sizing:border-box}body{margin:0;padding:32px;background:#f2f2f3;color:#1d1f20;font-family:Barlow,sans-serif}main{max-width:1280px;margin:auto}p{margin:0 0 8px;color:#5d5d60;font:500 12px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}h1{margin:0 0 24px;font:600 32px "Barlow Condensed",sans-serif}svg{width:100%;min-width:960px;display:block}</style>
+</head>
+<body><main><p>Step 6 · Claude Code swimlane</p><h1>/plantocode carries evidence through TDD implementation and review</h1>
+<svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="plantocode-orchestration-title plantocode-orchestration-desc">
+  <title id="plantocode-orchestration-title">plan-to-code orchestration</title>
+  <desc id="plantocode-orchestration-desc">A two-lane process shows nine parallel Sonnet discovery agents feeding Opus TDD planning and implementation, a Sonnet commit sweep, Opus review, two Sonnet judges, and a revision intersection.</desc>
+  <defs>
+    <style>
+      .lane-a{fill:#e9e9ea;fill-opacity:.44}.lane-b{fill:#fff;fill-opacity:.44}.node{fill:#fff;stroke:#1d1f20;stroke-width:1}.focal{fill:#5980a6;fill-opacity:.10;stroke:#5980a6;stroke-width:1.2}
+      .label{fill:#1d1f20;font:600 12px Barlow,sans-serif;text-anchor:middle}.sub{fill:#5d5d60;font:400 8px ui-monospace,Menlo,monospace;text-anchor:middle}.tag{fill:#5d5d60;font:500 8px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-anchor:middle}.lane{fill:#416180;font:600 12px 'Barlow Condensed',sans-serif;text-anchor:middle}.line{fill:none;stroke:#5d5d60;stroke-width:1.2}
+    </style>
+    <marker id="plan-code-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#5d5d60"/></marker>
+  </defs>
+  <rect width="1280" height="720" fill="#f2f2f3"/><rect class="lane-a" x="40" y="104" width="1200" height="200"/><rect class="lane-b" x="40" y="304" width="1200" height="312"/>
+  <line x1="40" y1="104" x2="1240" y2="104" stroke="#b7b7ba" stroke-width="0.8"/><line x1="40" y1="304" x2="1240" y2="304" stroke="#b7b7ba" stroke-width="0.8"/><line x1="40" y1="616" x2="1240" y2="616" stroke="#b7b7ba" stroke-width="0.8"/>
+  <text class="lane" x="108" y="128">SONNET</text><text class="lane" x="108" y="328">OPUS</text>
+
+  <path class="line" d="M176 200 H256 Q264 200 264 208 V360" marker-end="url(#plan-code-arrow)"/>
+  <line class="line" x1="328" y1="392" x2="352" y2="392" marker-end="url(#plan-code-arrow)"/>
+  <path class="line" d="M480 392 H560 Q568 392 568 384 V232" marker-end="url(#plan-code-arrow)"/>
+  <path class="line" d="M632 200 H712 Q720 200 720 208 V360" marker-end="url(#plan-code-arrow)"/>
+  <path class="line" d="M784 392 H864 Q872 392 872 384 V232" marker-end="url(#plan-code-arrow)"/>
+  <line class="line" x1="936" y1="200" x2="960" y2="200" marker-end="url(#plan-code-arrow)"/>
+  <line class="line" x1="1088" y1="200" x2="1108" y2="200" marker-end="url(#plan-code-arrow)"/>
+
+  <g><rect class="node" x="48" y="168" width="128" height="64" rx="8"/><text class="label" x="112" y="192">Discovery ×9</text><text class="sub" x="112" y="212">request · docs · 7 repos</text></g>
+  <g><rect class="node" x="200" y="360" width="128" height="64" rx="8"/><text class="label" x="264" y="384">TDD plan</text><text class="sub" x="264" y="404">cross-submodule order</text></g>
+  <g><rect class="node" x="352" y="360" width="128" height="64" rx="8"/><text class="label" x="416" y="384">Tests + code</text><text class="sub" x="416" y="404">failing → passing</text></g>
+  <g><rect class="node" x="504" y="168" width="128" height="64" rx="8"/><text class="label" x="568" y="192">Commit sweep</text><text class="sub" x="568" y="212">version branches + pins</text></g>
+  <g><rect class="node" x="656" y="360" width="128" height="64" rx="8"/><text class="label" x="720" y="384">Impl review</text><text class="sub" x="720" y="404">numbered revisions</text></g>
+  <g><rect class="node" x="808" y="168" width="128" height="64" rx="8"/><text class="label" x="872" y="192">Judges ×2</text><text class="sub" x="872" y="212">validity ∥ necessity</text></g>
+  <g><rect class="focal" x="960" y="168" width="128" height="64" rx="8"/><text class="label" x="1024" y="192">Intersection</text><text class="sub" x="1024" y="212">valid ∩ necessary</text></g>
+  <g><rect class="node" x="1108" y="168" width="128" height="64" rx="8"/><text class="label" x="1172" y="192">Delivery gates</text><text class="sub" x="1172" y="212">revision → release</text></g>
+
+  <text class="tag" x="640" y="568">16 AGENT ASSIGNMENTS THROUGH THE REVIEW INTERSECTION · MAX FAN-OUT 9</text>
+  <line x1="40" y1="660" x2="1240" y2="660" stroke="#b7b7ba" stroke-width="0.8"/><text class="tag" x="640" y="688">THE INTERSECTION HANDS A COMPLETE, NUMBERED FIX SET TO THE DELIVERY-GATES WORKFLOW</text>
+</svg></main></body></html>

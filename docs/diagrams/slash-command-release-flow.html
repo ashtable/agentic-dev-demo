@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Claude Code slash-command flow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>*{box-sizing:border-box}body{margin:0;padding:32px;background:#f2f2f3;color:#1d1f20;font-family:Barlow,sans-serif}main{max-width:1280px;margin:auto}p{margin:0 0 8px;color:#5d5d60;font:500 12px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}h1{margin:0 0 24px;font:600 32px "Barlow Condensed",sans-serif}svg{width:100%;min-width:960px;display:block}</style>
+</head>
+<body><main><p>Claude Code · executable command chain</p><h1>Design commands create the change; release commands certify exact gitlinks</h1>
+<svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="slash-command-release-flow-title slash-command-release-flow-desc">
+  <title id="slash-command-release-flow-title">Claude Code slash-command flow</title>
+  <desc id="slash-command-release-flow-desc">The idea-to-plan and plan-to-code commands feed six scoped component releases, a root pointer commit, a manual E2E synchronization path when nested components change, and a root release whose first action is strict preflight.</desc>
+  <defs>
+    <style>
+      .node{fill:#fff;stroke:#1d1f20;stroke-width:1}.store{fill:#e9e9ea;stroke:#7a7a7d}.focal{fill:#5980a6;fill-opacity:.10;stroke:#5980a6;stroke-width:1.2}.optional{fill:#f2f2f3;stroke:#7a7a7d;stroke-width:1;stroke-dasharray:4 3}
+      .label{fill:#1d1f20;font:600 12px Barlow,sans-serif;text-anchor:middle}.sub{fill:#5d5d60;font:400 8px ui-monospace,Menlo,monospace;text-anchor:middle}.tag{fill:#5d5d60;font:500 8px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-anchor:middle}.line{fill:none;stroke:#5d5d60;stroke-width:1.2}.dashed{fill:none;stroke:#7a7a7d;stroke-width:1;stroke-dasharray:5 4}
+    </style>
+    <marker id="slash-flow-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#5d5d60"/></marker>
+  </defs>
+  <rect width="1280" height="720" fill="#f2f2f3"/>
+
+  <line class="line" x1="180" y1="276" x2="204" y2="276" marker-end="url(#slash-flow-arrow)"/><line class="line" x1="344" y1="276" x2="368" y2="276" marker-end="url(#slash-flow-arrow)"/><line class="line" x1="508" y1="276" x2="532" y2="276" marker-end="url(#slash-flow-arrow)"/><line class="line" x1="732" y1="276" x2="756" y2="276" marker-end="url(#slash-flow-arrow)"/><line class="line" x1="916" y1="276" x2="940" y2="276" marker-end="url(#slash-flow-arrow)"/><line class="line" x1="1080" y1="276" x2="1104" y2="276" marker-end="url(#slash-flow-arrow)"/>
+  <path class="dashed" d="M836 332 H868 Q876 332 876 340 V404" marker-end="url(#slash-flow-arrow)"/>
+  <path class="dashed" d="M996 436 H1002 Q1010 436 1010 428 V332" marker-end="url(#slash-flow-arrow)"/>
+
+  <g><rect class="node" x="40" y="220" width="140" height="112" rx="8"/><text class="label" x="110" y="252">/ideatoplan</text><text class="sub" x="110" y="276">idea / Design URL</text><text class="sub" x="110" y="296">15–16 agents</text><text class="sub" x="110" y="316">$ARGUMENTS</text></g>
+  <g><rect class="store" x="204" y="220" width="140" height="112" rx="8"/><text class="label" x="274" y="252">Design docs</text><text class="sub" x="274" y="276">current-design</text><text class="sub" x="274" y="296">design-delta · plan</text><text class="sub" x="274" y="316">design-docs/</text></g>
+  <g><rect class="node" x="368" y="220" width="140" height="112" rx="8"/><text class="label" x="438" y="252">/plantocode</text><text class="sub" x="438" y="276">selected plan tasks</text><text class="sub" x="438" y="296">17–19 by gates</text><text class="sub" x="438" y="316">tests · code · commits</text></g>
+  <g><rect class="node" x="532" y="220" width="200" height="112" rx="8"/><text class="label" x="632" y="248">Step 13 /release-* ×6</text><text class="sub" x="632" y="272">database · zod · api</text><text class="sub" x="632" y="292">dbos · vscode · web</text><text class="sub" x="632" y="312">branch → PR/CI → merge → next branch</text></g>
+  <g><rect class="store" x="756" y="220" width="160" height="112" rx="8"/><text class="label" x="836" y="248">Root pointer commit</text><text class="sub" x="836" y="276">tracking branch update</text><text class="sub" x="836" y="296">+ immutable gitlink SHA</text><text class="sub" x="836" y="316">written by component command</text></g>
+  <g><rect class="focal" x="940" y="220" width="140" height="112" rx="8"/><text class="label" x="1010" y="248">/release-root</text><text class="sub" x="1010" y="272">preflight runs first</text><text class="sub" x="1010" y="292">clean · pushed · CI</text><text class="sub" x="1010" y="312">nested parity or stop</text></g>
+  <g><rect class="node" x="1104" y="220" width="136" height="112" rx="8"/><text class="label" x="1172" y="248">Root release</text><text class="sub" x="1172" y="276">PR → CI → merge</text><text class="sub" x="1172" y="296">sync main</text><text class="sub" x="1172" y="316">cut next v…</text></g>
+  <g><rect class="optional" x="756" y="404" width="240" height="64" rx="8"/><text class="label" x="876" y="428">Required gap for nested changes</text><text class="sub" x="876" y="448">manual E2E pin sync → /release-e2e-tests → root pointer</text></g>
+  <g><rect class="store" x="40" y="404" width="320" height="64" rx="8"/><text class="label" x="200" y="428">Five more component commands are available</text><text class="sub" x="200" y="448">core · docs · e2e-tests · mcp-server · skills</text></g>
+
+  <text class="tag" x="640" y="532">COMPONENT RELEASE COMMANDS DO NOT CHAIN TO ONE ANOTHER · STEP 13 DELEGATES SIX OF THEM</text>
+  <text class="tag" x="640" y="560">MCP-SERVER SPECIAL CASE · .VERSION + FUTURE PR SO CI COVERS THE POST-MERGE TIP</text>
+  <line x1="40" y1="660" x2="1240" y2="660" stroke="#b7b7ba" stroke-width="0.8"/><text class="tag" x="352" y="688">SOLID · CURRENT STEP 13 PATH</text><text class="tag" x="832" y="688">DASHED · OPERATOR MUST INSERT WHEN A NESTED COMPONENT CHANGES</text>
+</svg></main></body></html>
