@@ -30,6 +30,8 @@
     - [ ] Inputs - “Context Harness for the Software Design”  
         - [ ] Custom, Claude Code Subagents w/ Shared Project Memory  
             - [ ] “Opus-Engineer” & “Sonnet-Engineer”  
+        - [ ] Custom, Claude Code Slash Commands
+            - [ ] “/release-web", "/release-dbos", "/release-root", etc.
         - [ ] Existing Codebase Super-Repo  
             - [ ] Git Submodules for All Code Repos  
             - [ ] Meta-Repo w/ Project-Level Docker Compose  
